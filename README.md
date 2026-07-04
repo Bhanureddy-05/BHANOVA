@@ -1,135 +1,367 @@
-# ⚡ BHANOVA – Personal Growth Platform
+# 🚀 BHANOVA – AI-Powered Personal Productivity Platform
 
-> A premium personal growth platform for tracking Data Science study, LeetCode/DSA practice, fitness, diet/nutrition, habits, sleep, reading, finance budgets, mindful journals, academics, and placement applications, complete with a built-in AI Voice Assistant, speech-to-text voice journals, body progress timelines, smartwatch adapters, Google Calendar sync engines, SMTP email reminder queues, family sharing dashboards, local backup pipelines, and a gameful XP/Level leveling mechanic.
+<p align="center">
+  <img src="https://img.shields.io/badge/React-19-61DAFB?logo=react" />
+  <img src="https://img.shields.io/badge/FastAPI-0.115-009688?logo=fastapi" />
+  <img src="https://img.shields.io/badge/Python-3.11-3776AB?logo=python" />
+  <img src="https://img.shields.io/badge/PostgreSQL-16-336791?logo=postgresql" />
+  <img src="https://img.shields.io/badge/SQLAlchemy-2.0-red" />
+  <img src="https://img.shields.io/badge/JWT-Authentication-success" />
+  <img src="https://img.shields.io/badge/Render-Backend-46E3B7?logo=render" />
+  <img src="https://img.shields.io/badge/Vercel-Frontend-black?logo=vercel" />
+</p>
 
-![BHANOVA](https://img.shields.io/badge/BHANOVA-v5.0.0-6366f1?style=for-the-badge)
-![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react)
-![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688?style=for-the-badge&logo=fastapi)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-316192?style=for-the-badge&logo=postgresql)
-![PWA](https://img.shields.io/badge/PWA-Supported-0284c7?style=for-the-badge&logo=pwa)
+BHANOVA is a full-stack productivity platform that helps users manage daily habits, study plans, fitness, goals, journaling, reading progress, and personal growth from a single dashboard.
+
+The application is built using **React**, **FastAPI**, and **PostgreSQL**, following a modular architecture with secure authentication and REST APIs.
 
 ---
 
-## 🚀 Quick Start (Local Run)
+# 🌐 Live Demo
 
-A PostgreSQL database is required. Provide the database connection URL via the DATABASE_URL environment variable.
+### Frontend
 
-### 1. Run the Backend Server
+https://bhanova.vercel.app
+
+### Backend API
+
+https://bhanova.onrender.com
+
+### API Documentation
+
+https://bhanova.onrender.com/docs
+
+---
+
+# ✨ Features
+
+## User Management
+
+- Secure JWT Authentication
+- User Registration & Login
+- Password Hashing
+- Protected API Routes
+- User Profile Management
+
+---
+
+## Habit Tracking
+
+- Create Daily Habits
+- Habit Completion Tracking
+- Streak Calculation
+- Habit Statistics
+- Progress Monitoring
+
+---
+
+## Study Planner
+
+- Study Topic Management
+- Study Session Logging
+- Learning Progress Tracking
+- Daily Study Analytics
+
+---
+
+## DSA Tracker
+
+- Track DSA Topics
+- Problem Solving Progress
+- Accuracy Tracking
+- Revision Planning
+
+---
+
+## Fitness Dashboard
+
+- Workout Logging
+- Body Measurements
+- Weight Tracking
+- Progress History
+
+---
+
+## Nutrition Tracking
+
+- Food Journal
+- Daily Calories
+- Protein, Carbs & Fat Tracking
+- Water Intake Monitoring
+
+---
+
+## Sleep Tracking
+
+- Sleep Duration
+- Sleep Quality
+- Daily Sleep Logs
+
+---
+
+## Reading Tracker
+
+- Book Library
+- Reading Sessions
+- Reading Progress
+- Completion Statistics
+
+---
+
+## Goal Management
+
+- Daily Goals
+- Weekly Goals
+- Monthly Goals
+- Progress Tracking
+
+---
+
+## Planner
+
+- Daily Task Planning
+- Priority Management
+- Task Completion Tracking
+
+---
+
+## Journal
+
+- Morning Journal
+- Night Reflection
+- Gratitude Logging
+
+---
+
+## Finance Tracker
+
+- Income Tracking
+- Expense Tracking
+- Savings Records
+
+---
+
+## Career Dashboard
+
+- Job Applications
+- Interview Preparation
+- University Shortlisting
+
+---
+
+# 🏗 Architecture
+
+```
+                React + Vite
+                      │
+                      │ REST API
+                      ▼
+              FastAPI Backend
+                      │
+              SQLAlchemy ORM
+                      │
+                      ▼
+               PostgreSQL Database
+```
+
+---
+
+# 🛠 Tech Stack
+
+## Frontend
+
+- React 19
+- TypeScript
+- Vite
+- Tailwind CSS
+- React Router
+- TanStack Query
+- Zustand
+- Framer Motion
+- Recharts
+
+---
+
+## Backend
+
+- FastAPI
+- Python 3.11
+- SQLAlchemy
+- Alembic
+- JWT Authentication
+- Pydantic
+
+---
+
+## Database
+
+- PostgreSQL
+
+---
+
+## Deployment
+
+Frontend:
+- Vercel
+
+Backend:
+- Render
+
+---
+
+# 📁 Project Structure
+
+```
+BHANOVA
+│
+├── frontend
+│   ├── src
+│   ├── public
+│   └── package.json
+│
+├── backend
+│   ├── app
+│   ├── models
+│   ├── routers
+│   ├── services
+│   ├── database.py
+│   └── main.py
+│
+└── README.md
+```
+
+---
+
+# ⚙ Installation
+
+## Clone Repository
+
+```bash
+git clone https://github.com/Bhanureddy-05/BHANOVA.git
+
+cd BHANOVA
+```
+
+---
+
+## Backend
+
 ```bash
 cd backend
 
-# Create virtual environment & activate
 python -m venv venv
-venv\Scripts\activate  # On Windows
-# source venv/bin/activate  # On Linux/macOS
 
-# Install dependencies
+# Windows
+venv\Scripts\activate
+
+# Linux / Mac
+source venv/bin/activate
+
 pip install -r requirements.txt
 
-# Run the backend (database initializes and seeds automatically on start)
-uvicorn app.main:app --reload --port 8000
+uvicorn app.main:app --reload
 ```
-* **API Documentation (Swagger UI)**: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
 
-### 2. Run the Frontend Client
+Backend runs at
+
+```
+http://127.0.0.1:8000
+```
+
+---
+
+## Frontend
+
 ```bash
 cd frontend
+
 npm install
+
 npm run dev
 ```
-* **Client App**: [http://localhost:5173/](http://localhost:5173/)
 
-**Default seeded credentials:**
-* **Email**: `bhanu@lifeos.app`
-* **Password**: `lifeos2026`
+Frontend runs at
 
----
-
-## 🏛️ System Architecture
-
-```mermaid
-graph TD
-    Client[React Frontend Single Page App / PWA] -->|HTTP Requests / JSON / multipart| API[FastAPI Backend Server]
-    Client -->|Static Cache| SW[Service Worker & Cache Storage]
-    API -->|ORM queries| DB[(PostgreSQL Database)]
-    API -->|SMTP| MailServer[Mime Mail Server]
-    API -->|Strategy Pattern| CloudBackup[AWS S3 / Drive / OneDrive / Dropbox / R2]
 ```
-
-* **Frontend SPA**: React 19, Vite, TailwindCSS v4, Recharts, Zustand, TanStack Query, and Framer Motion for premium UI transitions.
-* **Service Worker**: Cache-first asset caching handles offline capability and links to PWA web manifest.
-* **Backend API**: FastAPI serving modular router endpoints for users, habits, study plans, DSA problem tracking, goals, fitness diaries, and system backups.
-* **Database**: PostgreSQL instance managed via SQLAlchemy 2.0 ORM, featuring auto-seeding on fresh start.
-
----
-
-## 🗄️ Database Schema & ORM Relationships
-
-The database structure contains linked tables mapping personal logging metrics to the `users` credentials.
-
-```mermaid
-erDiagram
-    users ||--o{ habits : "has habits"
-    users ||--o{ study_topics : "studies"
-    users ||--o{ dsa_topics : "DSA topics"
-    users ||--o{ fitness_logs : "workout sessions"
-    users ||--o{ food_logs : "calorie journals"
-    users ||--o{ sleep_logs : "sleep cycles"
-    users ||--o{ books : "library entries"
-    users ||--o{ goals : "personal goals"
-    users ||--o{ planner_tasks : "tasks list"
-    users ||--o{ journal_entries : "daily journals"
-    users ||--o{ finance_logs : "transaction ledgers"
-    users ||--o{ job_applications : "jobs pipeline"
-    users ||--o{ masters_preps : "exam scores"
-    users ||--o{ university_shortlists : "university list"
-    users ||--o{ knowledge_items : "vault items"
-    users ||--o{ voice_journals : "audio logs"
-    users ||--o{ progress_photos : "timeline pictures"
-    users ||--o{ smartwatch_syncs : "wearables links"
-    users ||--o{ google_calendar_credentials : "oauth tokens"
-    users ||--o{ group_memberships : "joined groups"
-    family_groups ||--o{ group_memberships : "members roster"
-    family_groups ||--o{ group_invitations : "invites roster"
-    family_groups ||--o{ shared_goals : "shared goals"
+http://localhost:5173
 ```
 
 ---
 
-## ⚙️ Env Configuration & Deployment Secrets
+# 🔐 Environment Variables
 
-All credentials should be added to the `.env` file in the root of the `backend` folder.
+Example:
 
-### 1. Google OAuth & Calendar Integration:
-Used to synchronize calendar events.
 ```env
-GOOGLE_CLIENT_ID=your_google_client_id_from_cloud_console
-GOOGLE_CLIENT_SECRET=your_google_client_secret_from_cloud_console
+DATABASE_URL=your_database_url
+
+SECRET_KEY=your_secret_key
+
+ALGORITHM=HS256
+
+ACCESS_TOKEN_EXPIRE_MINUTES=30
 ```
 
-### 2. Email Notifications (SMTP Server):
-Used to dispatch daily briefings, weekly reviews, and habit alerts.
-```env
-LIFEOS_SMTP_HOST=smtp.gmail.com
-LIFEOS_SMTP_PORT=587
-LIFEOS_SMTP_USER=your_gmail_address@gmail.com
-LIFEOS_SMTP_PASSWORD=your_gmail_app_password
-LIFEOS_SENDER_EMAIL=your_verified_sender_email@gmail.com
-```
+---
 
-### 3. Smartwatch Integrations:
-Used to synchronize steps/calories/heart rates.
-```env
-GOOGLE_FIT_CLIENT_ID=your_google_fit_id
-FITBIT_CLIENT_ID=your_fitbit_id
-GARMIN_CONSUMER_KEY=your_garmin_key
-```
+# 📷 Screenshots
 
-### 4. Cloud Backup (AWS S3 / R2 Bucket):
-Used to upload encrypted JSON archives.
-```env
-AWS_ACCESS_KEY_ID=your_aws_s3_key_id
-AWS_SECRET_ACCESS_KEY=your_aws_s3_secret_key
-AWS_BUCKET_NAME=your_s3_bucket_name
-```
-If credentials are not present, third-party features gracefully degrade to local mock adapters to protect system stability.
+> Add screenshots here
+
+- Login Page
+
+- Dashboard
+
+- Habit Tracker
+
+- Study Planner
+
+- Fitness Dashboard
+
+- Analytics
+
+---
+
+# 📌 Future Enhancements
+
+- AI Productivity Assistant
+- Google Calendar Synchronization
+- Email Reminder Service
+- Smartwatch Integration
+- Voice Journaling
+- Mobile Application
+- Advanced Analytics
+- Notification System
+
+---
+
+# 📊 Skills Demonstrated
+
+- Full Stack Development
+- REST API Development
+- Authentication & Authorization
+- Database Design
+- Backend Architecture
+- State Management
+- Responsive UI Development
+- Deployment & DevOps
+- Git Version Control
+
+---
+
+# 👨‍💻 Author
+
+**Y Bhanu Prakash Reddy**
+
+LinkedIn:
+(Add your LinkedIn)
+
+GitHub:
+
+https://github.com/Bhanureddy-05
+
+---
+
+# 📄 License
+
+This project is licensed under the MIT License.
