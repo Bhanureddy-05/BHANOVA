@@ -98,11 +98,11 @@ export default function FitnessPage() {
         </div>
         <div className="metric-card">
           <div style={{ fontSize: 13, color: '#94a3b8', marginBottom: 4 }}>Current Weight</div>
-          <div style={{ fontSize: 24, fontWeight: 800, color: '#f1f5f9' }}>{stats?.latest_measurements?.weight_kg || 'N/A'} kg</div>
+          <div style={{ fontSize: 24, fontWeight: 800, color: '#f1f5f9' }}>{stats?.latest_measurements?.weight_kg ? `${stats.latest_measurements.weight_kg} kg` : 'No weight log'}</div>
         </div>
         <div className="metric-card">
           <div style={{ fontSize: 13, color: '#94a3b8', marginBottom: 4 }}>Body Fat</div>
-          <div style={{ fontSize: 24, fontWeight: 800, color: '#f1f5f9' }}>{stats?.latest_measurements?.body_fat_percent || 'N/A'} %</div>
+          <div style={{ fontSize: 24, fontWeight: 800, color: '#f1f5f9' }}>{stats?.latest_measurements?.body_fat_percent ? `${stats.latest_measurements.body_fat_percent}%` : 'No body fat log'}</div>
         </div>
       </div>
 

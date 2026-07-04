@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Outlet, NavLink, useNavigate, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   LayoutDashboard, Calendar, BookOpen, Code2, Brain, FolderGit2,
   Dumbbell, UtensilsCrossed, Moon, Music, BookMarked, Target,
   BarChart3, FileText, Settings, LogOut, Zap, ChevronLeft, Menu,
-  User, Bell, X, GraduationCap, Briefcase, DollarSign, Lightbulb, Camera, Mic, Users, Trophy, Sparkles
+  User, Bell, X, GraduationCap, Briefcase, DollarSign, Lightbulb, Camera, Mic, Users, Trophy, Sparkles, Search, Check
 } from 'lucide-react'
 import { useAuthStore, useUIStore } from '@/store'
 
@@ -58,6 +58,20 @@ export default function Layout() {
 
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768)
   const [isTablet, setIsTablet] = useState(window.innerWidth >= 768 && window.innerWidth < 1024)
+  
+  // Search & Notifications UI states
+  const [showSearch, setShowSearch] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
+  const [showNotifications, setShowNotifications] = useState(false)
+  
+  // Simulated Notification State
+  const [notifications, setNotifications] = useState([
+    { id: 1, title: 'Habits reminder', message: 'You have not checked in your habits today.', read: false, time: '10m ago' },
+    { id: 2, title: 'Data Science progress', message: 'Congratulations! You completed the Pandas basics module.', read: false, time: '2h ago' },
+    { id: 3, title: 'Coaching insight', message: 'Your average sleep duration this week is 7.2 hours. Looking solid!', read: true, time: '1d ago' },
+  ])
+
+  const dropdownRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const handleResize = () => {
@@ -70,34 +84,68 @@ export default function Layout() {
         setSidebarOpen(false)
       }
     }
-    
-    // Initial call
     handleResize()
-    
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
   }, [setSidebarOpen])
+
+  // Keyboard shortcut listener for global search (Ctrl+K / Cmd+K)
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault()
+        setShowSearch(prev => !prev)
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [])
+
+  // Close notifications dropdown on click outside
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setShowNotifications(false)
+      }
+    }
+    window.addEventListener('mousedown', handleClickOutside)
+    return () => window.removeEventListener('mousedown', handleClickOutside)
+  }, [])
 
   const handleLogout = () => {
     logout()
     navigate('/login')
   }
 
-  // Close sidebar drawer on route change on mobile/tablet
   useEffect(() => {
     if (isMobile || isTablet) {
       setSidebarOpen(false)
     }
   }, [location.pathname, isMobile, isTablet, setSidebarOpen])
 
+  const unreadCount = notifications.filter(n => !n.read).length
+
+  const markAllAsRead = () => {
+    setNotifications(prev => prev.map(n => ({ ...n, read: true })))
+  }
+
+  const markAsRead = (id: number) => {
+    setNotifications(prev => prev.map(n => n.id === id ? { ...n, read: true } : n))
+  }
+
+  // Filter searchable items locally based on nav options and descriptions
+  const searchResults = searchQuery.trim() === '' ? [] : navItems.filter(item => 
+    !('divider' in item) && item.label.toLowerCase().includes(searchQuery.toLowerCase())
+  )
+
   return (
-    <div style={{ display: 'flex', minHeight: '100vh', backgroundColor: '#050505', color: '#D1D5DB' }}>
+    <div style={{ display: 'flex', minHeight: '100vh', backgroundColor: '#090d16', color: '#D1D5DB', fontFamily: 'Inter, system-ui, sans-serif' }}>
       
       {/* Mobile Top Bar */}
       {isMobile && (
         <div style={{
           position: 'fixed', top: 0, left: 0, right: 0, height: 56,
-          backgroundColor: 'rgba(17, 17, 17, 0.95)', backdropFilter: 'blur(10px)',
+          backgroundColor: 'rgba(17, 24, 39, 0.95)', backdropFilter: 'blur(10px)',
           borderBottom: '1px solid rgba(255, 255, 255, 0.06)',
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
           padding: '0 16px', zIndex: 30
@@ -114,19 +162,27 @@ export default function Layout() {
             <span style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 800, fontSize: 16, color: '#f1f5f9' }}>BHANOVA</span>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            <NavLink to="/settings" style={{ color: '#94a3b8' }}>
-              <User size={18} />
-            </NavLink>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+            <button onClick={() => setShowSearch(true)} style={{ background: 'none', border: 'none', color: '#94a3b8', cursor: 'pointer' }}>
+              <Search size={18} />
+            </button>
+            <button onClick={() => setShowNotifications(!showNotifications)} style={{ background: 'none', border: 'none', color: '#94a3b8', cursor: 'pointer', position: 'relative' }}>
+              <Bell size={18} />
+              {unreadCount > 0 && (
+                <span style={{
+                  position: 'absolute', top: -2, right: -2, width: 6, height: 6, borderRadius: '50%',
+                  backgroundColor: '#ef4444'
+                }} />
+              )}
+            </button>
           </div>
         </div>
       )}
 
-      {/* Sidebar (Desktop / Tablet / Mobile Drawer) */}
+      {/* Sidebar */}
       <AnimatePresence>
         {(sidebarOpen || (!isMobile && !isTablet)) && (
           <>
-            {/* Mobile Drawer Overlay */}
             {(isMobile || isTablet) && (
               <motion.div
                 initial={{ opacity: 0 }}
@@ -150,7 +206,7 @@ export default function Layout() {
                 top: 0, left: 0, bottom: 0,
                 width: isMobile || isTablet ? 260 : undefined,
                 height: '100vh',
-                backgroundColor: '#111111',
+                backgroundColor: '#0d1321',
                 borderRight: '1px solid rgba(255, 255, 255, 0.06)',
                 display: 'flex', flexDirection: 'column',
                 zIndex: isMobile || isTablet ? 50 : 20,
@@ -177,7 +233,6 @@ export default function Layout() {
                   <img src="/logo.png" alt="BHANOVA logo" style={{ width: 28, height: 28, borderRadius: 4 }} />
                 )}
                 
-                {/* Close/Toggle Button */}
                 {(isMobile || isTablet) ? (
                   <button
                     onClick={() => setSidebarOpen(false)}
@@ -291,6 +346,117 @@ export default function Layout() {
         paddingTop: isMobile ? 56 : 0, paddingBottom: isMobile ? 64 : 0,
         height: '100vh', overflowY: 'auto'
       }}>
+        
+        {/* Desktop Header */}
+        {!isMobile && (
+          <header style={{
+            height: 64, display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+            padding: '0 24px', borderBottom: '1px solid rgba(255, 255, 255, 0.06)',
+            backgroundColor: 'rgba(13, 19, 33, 0.4)', backdropFilter: 'blur(10px)',
+            position: 'sticky', top: 0, zIndex: 10
+          }}>
+            {/* Global Search trigger bar */}
+            <div
+              onClick={() => setShowSearch(true)}
+              style={{
+                display: 'flex', alignItems: 'center', gap: 8, background: 'rgba(255, 255, 255, 0.02)',
+                border: '1px solid rgba(255, 255, 255, 0.06)', borderRadius: 10, padding: '8px 16px',
+                width: 320, color: '#64748b', cursor: 'pointer', fontSize: 13, userSelect: 'none'
+              }}
+            >
+              <Search size={14} />
+              <span>Search dashboard metrics, habits...</span>
+              <span style={{ marginLeft: 'auto', fontSize: 10, background: 'rgba(255, 255, 255, 0.08)', padding: '2px 6px', borderRadius: 4 }}>Ctrl+K</span>
+            </div>
+
+            {/* Right Header Actions */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+              {/* Notification icon */}
+              <div style={{ position: 'relative' }} ref={dropdownRef}>
+                <button
+                  onClick={() => setShowNotifications(!showNotifications)}
+                  style={{ background: 'none', border: 'none', color: '#94a3b8', cursor: 'pointer', position: 'relative', padding: 4 }}
+                >
+                  <Bell size={18} />
+                  {unreadCount > 0 && (
+                    <span style={{
+                      position: 'absolute', top: 0, right: 0, width: 8, height: 8, borderRadius: '50%',
+                      backgroundColor: '#ef4444'
+                    }} />
+                  )}
+                </button>
+
+                {/* Notifications Dropdown menu */}
+                <AnimatePresence>
+                  {showNotifications && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 10 }}
+                      style={{
+                        position: 'absolute', right: 0, marginTop: 12, width: 320,
+                        backgroundColor: '#0d1321', border: '1px solid rgba(255,255,255,0.08)',
+                        borderRadius: 12, boxShadow: '0 10px 25px -5px rgba(0,0,0,0.5)', zIndex: 100,
+                        overflow: 'hidden'
+                      }}
+                    >
+                      <div style={{ padding: '12px 16px', borderBottom: '1px solid rgba(255,255,255,0.06)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <span style={{ fontSize: 13, fontWeight: 700, color: '#f1f5f9' }}>Inbox Alerts</span>
+                        {unreadCount > 0 && (
+                          <button onClick={markAllAsRead} style={{ background: 'none', border: 'none', color: '#60a5fa', fontSize: 11, cursor: 'pointer', fontWeight: 600 }}>
+                            Mark all read
+                          </button>
+                        )}
+                      </div>
+
+                      <div style={{ maxHeight: 280, overflowY: 'auto' }}>
+                        {notifications.length === 0 ? (
+                          <div style={{ padding: '24px 16px', textAlign: 'center', color: '#475569', fontSize: 12 }}>
+                            No notifications yet
+                          </div>
+                        ) : (
+                          notifications.map((notif) => (
+                            <div
+                              key={notif.id}
+                              onClick={() => markAsRead(notif.id)}
+                              style={{
+                                padding: '12px 16px', borderBottom: '1px solid rgba(255,255,255,0.04)',
+                                background: notif.read ? 'transparent' : 'rgba(96, 165, 250, 0.03)',
+                                cursor: 'pointer'
+                              }}
+                            >
+                              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 4 }}>
+                                <span style={{ fontSize: 12, fontWeight: 700, color: notif.read ? '#94a3b8' : '#f1f5f9' }}>{notif.title}</span>
+                                <span style={{ fontSize: 9, color: '#475569' }}>{notif.time}</span>
+                              </div>
+                              <p style={{ fontSize: 11, color: '#64748b', lineHeight: 1.4, margin: 0 }}>{notif.message}</p>
+                            </div>
+                          ))
+                        )}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              {/* User profile bubble */}
+              <NavLink to="/settings" style={{ textDecoration: 'none' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer' }}>
+                  <div style={{
+                    width: 32, height: 32, borderRadius: 8,
+                    background: 'linear-gradient(135deg, #3b82f6, #06b6d4)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    fontWeight: 700, fontSize: 13, color: 'white'
+                  }}>
+                    {user?.full_name?.charAt(0).toUpperCase()}
+                  </div>
+                </div>
+              </NavLink>
+            </div>
+          </header>
+        )}
+
+        {/* Content Outlet */}
         <div style={{ flex: 1 }}>
           <Outlet />
         </div>
@@ -300,7 +466,7 @@ export default function Layout() {
       {isMobile && (
         <div style={{
           position: 'fixed', bottom: 0, left: 0, right: 0, height: 64,
-          backgroundColor: 'rgba(17, 24, 39, 0.96)', backdropFilter: 'blur(12px)',
+          backgroundColor: 'rgba(13, 19, 33, 0.96)', backdropFilter: 'blur(12px)',
           borderTop: '1px solid rgba(255, 255, 255, 0.08)',
           display: 'flex', alignItems: 'center', justifyContent: 'space-around',
           zIndex: 30, paddingBottom: 'env(safe-area-inset-bottom)'
@@ -350,6 +516,90 @@ export default function Layout() {
       >
         <Sparkles size={24} />
       </motion.button>
+
+      {/* Global Search Modal Overlay */}
+      <AnimatePresence>
+        {showSearch && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setShowSearch(false)}
+            style={{
+              position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.8)',
+              backdropFilter: 'blur(8px)', zIndex: 9999, display: 'flex',
+              alignItems: 'flex-start', justifyContent: 'center', paddingTop: '10vh'
+            }}
+          >
+            <motion.div
+              initial={{ scale: 0.95, y: -20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.95, y: -20 }}
+              onClick={(e) => e.stopPropagation()}
+              style={{
+                width: '100%', maxWidth: 540, backgroundColor: '#0d1321',
+                borderRadius: 16, border: '1px solid rgba(255,255,255,0.08)',
+                boxShadow: '0 25px 50px -12px rgba(0,0,0,0.7)', overflow: 'hidden'
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', padding: '16px 20px', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+                <Search size={18} color="#64748b" style={{ marginRight: 12 }} />
+                <input
+                  type="text"
+                  placeholder="Type to search dashboard modules..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  autoFocus
+                  style={{
+                    flex: 1, background: 'none', border: 'none', outline: 'none',
+                    color: '#f1f5f9', fontSize: 15
+                  }}
+                />
+                <button
+                  onClick={() => setShowSearch(false)}
+                  style={{
+                    background: 'rgba(255,255,255,0.04)', border: 'none', borderRadius: 6,
+                    padding: 4, color: '#64748b', cursor: 'pointer'
+                  }}
+                >
+                  <X size={16} />
+                </button>
+              </div>
+
+              <div style={{ padding: '12px 0', maxHeight: 300, overflowY: 'auto' }}>
+                {searchQuery.trim() === '' ? (
+                  <div style={{ padding: '16px 20px', color: '#475569', fontSize: 13 }}>
+                    Type to search for active features (e.g. data science, sleep logs, habits...)
+                  </div>
+                ) : searchResults.length === 0 ? (
+                  <div style={{ padding: '16px 20px', color: '#475569', fontSize: 13 }}>
+                    No results found matching "{searchQuery}"
+                  </div>
+                ) : (
+                  searchResults.map((item) => (
+                    <div
+                      key={item.path}
+                      onClick={() => {
+                        navigate(item.path!)
+                        setShowSearch(false)
+                        setSearchQuery('')
+                      }}
+                      style={{
+                        display: 'flex', alignItems: 'center', gap: 12, padding: '12px 20px',
+                        cursor: 'pointer', transition: 'background 0.2s'
+                      }}
+                      className="hover:bg-slate-800"
+                    >
+                      {item.icon && <item.icon size={16} color="#60a5fa" />}
+                      <span style={{ color: '#f1f5f9', fontSize: 14 }}>{item.label}</span>
+                    </div>
+                  ))
+                )}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }

@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { User, Lock, Trash2, Eye, Shield, Download, Upload, FileSpreadsheet, Calendar } from 'lucide-react'
+import { User, Lock, Trash2, Eye, Shield, Download, Upload, FileSpreadsheet, Calendar, Settings } from 'lucide-react'
 import { useUpdateProfile, useChangePassword } from '@/hooks/useApi'
 import { useAuthStore } from '@/store'
 import api from '@/lib/api'
@@ -185,6 +185,75 @@ export default function SettingsPage() {
               {updateProfile.isPending ? 'Updating...' : 'Save Profile'}
             </button>
           </form>
+        </div>
+
+        {/* App Preferences Card */}
+        <div className="glass-card" style={{ padding: 24 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
+            <Settings size={18} color="#3b82f6" />
+            <h3 style={{ fontSize: 16, fontWeight: 700, color: '#f1f5f9' }}>App Preferences</h3>
+          </div>
+          
+          <div style={{ display: 'grid', gap: 16 }}>
+            <div>
+              <label style={{ fontSize: 13, color: '#94a3b8', marginBottom: 6, display: 'block' }}>Timezone</label>
+              <select
+                className="input-field"
+                defaultValue="Asia/Kolkata"
+                onChange={e => {
+                  localStorage.setItem('bhanova_timezone', e.target.value)
+                  toast.success('Timezone updated!')
+                }}
+                style={{ background: '#111827', color: '#f1f5f9', border: '1px solid rgba(255,255,255,0.08)' }}
+              >
+                <option value="UTC">UTC (GMT+0)</option>
+                <option value="Asia/Kolkata">Asia/Kolkata (GMT+5:30)</option>
+                <option value="America/New_York">America/New_York (GMT-5)</option>
+                <option value="Europe/London">Europe/London (GMT+0/BST)</option>
+              </select>
+            </div>
+
+            <div>
+              <label style={{ fontSize: 13, color: '#94a3b8', marginBottom: 6, display: 'block' }}>Theme Preference</label>
+              <div style={{ display: 'flex', gap: 12 }}>
+                {['Dark Theme', 'Light Theme (Coming Soon)'].map((themeName, idx) => (
+                  <button
+                    key={themeName}
+                    type="button"
+                    onClick={() => {
+                      if (idx === 0) toast.success('Dark theme active')
+                      else toast.error('Light theme is under development for SaaS dashboard release!')
+                    }}
+                    className={idx === 0 ? "btn-primary" : "btn-secondary"}
+                    style={{ fontSize: 12 }}
+                  >
+                    {themeName}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: 14 }}>
+              <label style={{ fontSize: 13, color: '#94a3b8', marginBottom: 8, display: 'block' }}>Notification Triggers</label>
+              <div style={{ display: 'grid', gap: 8 }}>
+                {[
+                  { key: 'email_alerts', label: 'Email weekly summaries' },
+                  { key: 'study_reminders', label: 'Study Pomodoro session reminders' },
+                  { key: 'streak_alerts', label: 'Streak depletion warnings (Streak Shield alert)' }
+                ].map((notifOption) => (
+                  <label key={notifOption.key} style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, color: '#cbd5e1', cursor: 'pointer' }}>
+                    <input
+                      type="checkbox"
+                      defaultChecked
+                      onChange={(e) => toast.success(`${notifOption.label} updated!`)}
+                      style={{ cursor: 'pointer' }}
+                    />
+                    <span>{notifOption.label}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Password Card */}

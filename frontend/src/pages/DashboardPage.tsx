@@ -279,7 +279,7 @@ export default function DashboardPage() {
               <Scale size={18} />
             </div>
           </div>
-          <div style={{ fontSize: 24, fontWeight: 800, color: '#f1f5f9' }}>{summary?.latest_weight ? `${summary.latest_weight} kg` : 'N/A'}</div>
+          <div style={{ fontSize: 24, fontWeight: 800, color: '#f1f5f9' }}>{summary?.latest_weight ? `${summary.latest_weight} kg` : 'No weight log'}</div>
           <div style={{ fontSize: 12, color: '#64748b', marginTop: 4 }}>Fitness goal: Lean Bulk</div>
         </motion.div>
 
@@ -297,7 +297,7 @@ export default function DashboardPage() {
               <Moon size={18} />
             </div>
           </div>
-          <div style={{ fontSize: 24, fontWeight: 800, color: '#f1f5f9' }}>{summary?.sleep_hours ? `${summary.sleep_hours} hrs` : 'N/A'}</div>
+          <div style={{ fontSize: 24, fontWeight: 800, color: '#f1f5f9' }}>{summary?.sleep_hours ? `${summary.sleep_hours} hrs` : 'No sleep log'}</div>
           <div style={{ fontSize: 12, color: '#64748b', marginTop: 4 }}>
             Quality: {summary?.sleep_quality ? '★'.repeat(summary.sleep_quality) + '☆'.repeat(5 - summary.sleep_quality) : 'Not Logged'}
           </div>
