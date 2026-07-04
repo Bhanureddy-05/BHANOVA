@@ -2,6 +2,7 @@
 Seed data for LifeOS. Run this file directly to populate the database.
 Usage: python -m app.seed
 """
+import os
 from datetime import date, timedelta
 import random
 from sqlalchemy.orm import Session
