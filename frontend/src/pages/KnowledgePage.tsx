@@ -15,7 +15,7 @@ export default function KnowledgePage() {
 
   const fetchItems = async () => {
     try {
-      const url = filterType === 'all' ? '/knowledge/' : `/knowledge/?content_type=${filterType}`
+      const url = filterType === 'all' ? '/api/knowledge/' : `/api/knowledge/?content_type=${filterType}`
       const res = await api.get(url)
       setItems(res.data)
       setLoading(false)
@@ -42,7 +42,7 @@ export default function KnowledgePage() {
     }
 
     try {
-      await api.post('/knowledge/', payload)
+      await api.post('/api/knowledge/', payload)
       toast.success('🧠 Knowledge item indexed! AI summary generated.')
       setTitle('')
       setContent('')
@@ -54,7 +54,7 @@ export default function KnowledgePage() {
 
   const handleDelete = async (id: number) => {
     try {
-      await api.delete(`/knowledge/${id}`)
+      await api.delete(`/api/knowledge/${id}`)
       toast.success('Note deleted')
       fetchItems()
     } catch (e) {

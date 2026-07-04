@@ -28,7 +28,7 @@ export default function VoicePage() {
   // Fetch Voice Journals
   const fetchJournals = async () => {
     try {
-      const res = await api.get('/voice-journal/')
+      const res = await api.get('/api/voice-journal/')
       setJournals(res.data)
       setJournalsLoading(false)
     } catch (e) {
@@ -133,7 +133,7 @@ export default function VoicePage() {
   const triggerMorningBriefing = async () => {
     setCommandFeedback('Compiling daily briefing...')
     try {
-      const res = await api.get('/coach/insights')
+      const res = await api.get('/api/coach/insights')
       const strengths = res.data.strengths?.join('. ') || 'You are doing great'
       const tip = res.data.daily_tip || 'Focus on consistency today.'
       const text = `Good morning Bhanu! Welcome to your daily briefing. ${strengths}. Daily coaching advice: ${tip}`
@@ -224,7 +224,7 @@ export default function VoicePage() {
 
     const toastId = toast.loading('Saving voice journal...')
     try {
-      await api.post('/voice-journal/', formData, {
+      await api.post('/api/voice-journal/', formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       })
       toast.success('🎙️ Voice Journal saved! +15 XP', { id: toastId })

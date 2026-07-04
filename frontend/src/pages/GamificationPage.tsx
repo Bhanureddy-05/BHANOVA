@@ -11,7 +11,7 @@ export default function GamificationPage() {
   const [showConfetti, setShowConfetti] = useState(false)
 
   const fetchStatus = () => {
-    api.get('/gamification/status')
+    api.get('/api/gamification/status')
       .then(res => {
         setStatus(res.data)
         setLoading(false)
@@ -28,7 +28,7 @@ export default function GamificationPage() {
   const handleBuyShield = async () => {
     setBuying(true)
     try {
-      const res = await api.post('/gamification/buy-shield')
+      const res = await api.post('/api/gamification/buy-shield')
       toast.success(res.data.message || 'Streak Shield purchased!')
       setStatus((s: any) => ({
         ...s,

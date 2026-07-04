@@ -76,7 +76,7 @@ export default function DashboardPage() {
   const [coachLoading, setCoachLoading] = useState(true)
 
   useEffect(() => {
-    api.get('/coach/insights')
+    api.get('/api/coach/insights')
       .then(res => {
         setCoachData(res.data)
         setCoachLoading(false)

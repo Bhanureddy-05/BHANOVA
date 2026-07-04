@@ -22,7 +22,7 @@ export default function TimelinePage() {
 
   const fetchPhotos = async () => {
     try {
-      const res = await api.get('/progress-photo/')
+      const res = await api.get('/api/progress-photo/')
       setPhotos(res.data)
       setLoading(false)
       
@@ -61,7 +61,7 @@ export default function TimelinePage() {
 
     const toastId = toast.loading('Uploading transformation photo...')
     try {
-      await api.post('/progress-photo/', formData, {
+      await api.post('/api/progress-photo/', formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       })
       toast.success('📷 Progress photo uploaded! +10 XP', { id: toastId })

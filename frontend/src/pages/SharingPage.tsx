@@ -27,7 +27,7 @@ export default function SharingPage() {
 
   const fetchData = async () => {
     try {
-      const gRes = await api.get('/sharing/groups')
+      const gRes = await api.get('/api/sharing/groups')
       setGroups(gRes.data)
       
       if (gRes.data.length > 0) {
@@ -36,7 +36,7 @@ export default function SharingPage() {
         fetchGroupDetails(firstGroup.id)
       }
       
-      const invRes = await api.get('/sharing/invitations')
+      const invRes = await api.get('/api/sharing/invitations')
       setInvites(invRes.data)
       setLoading(false)
     } catch (e) {
@@ -46,10 +46,10 @@ export default function SharingPage() {
 
   const fetchGroupDetails = async (groupId: number) => {
     try {
-      const mRes = await api.get(`/sharing/groups/${groupId}/members`)
+      const mRes = await api.get(`/api/sharing/groups/${groupId}/members`)
       setMembers(mRes.data)
 
-      const glRes = await api.get(`/sharing/groups/${groupId}/goals`)
+      const glRes = await api.get(`/api/sharing/groups/${groupId}/goals`)
       setGoals(glRes.data)
     } catch (e) {
       toast.error('Failed to load group details')
@@ -65,7 +65,7 @@ export default function SharingPage() {
     if (!groupName.trim()) return
 
     try {
-      const res = await api.post('/sharing/groups', { name: groupName.trim() })
+      const res = await api.post('/api/sharing/groups', { name: groupName.trim() })
       toast.success('👥 Family group created successfully!')
       setGroupName('')
       fetchData()
@@ -79,7 +79,7 @@ export default function SharingPage() {
     if (!inviteEmail.trim() || !activeGroup) return
 
     try {
-      await api.post('/sharing/invite', {
+      await api.post('/api/sharing/invite', {
         group_id: activeGroup.id,
         email: inviteEmail.trim()
       })
@@ -95,7 +95,7 @@ export default function SharingPage() {
     if (!goalTitle.trim() || !goalTarget || !activeGroup) return
 
     try {
-      await api.post('/sharing/goals', {
+      await api.post('/api/sharing/goals', {
         group_id: activeGroup.id,
         title: goalTitle.trim(),
         description: goalDesc.trim() || null,
@@ -114,7 +114,7 @@ export default function SharingPage() {
 
   const handleRespondInvite = async (inviteId: number, accept: boolean) => {
     try {
-      await api.post(`/sharing/invitations/${inviteId}/respond?accept=${accept}`)
+      await api.post(`/api/sharing/invitations/${inviteId}/respond?accept=${accept}`)
       toast.success(accept ? 'Joined group!' : 'Invitation declined')
       fetchData()
     } catch (e) {

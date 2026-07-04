@@ -30,9 +30,9 @@ export default function AIChatPage() {
 
   useEffect(() => {
     // Pre-fetch reports
-    api.get('/coach/reports/daily').then(res => setDailyData(res.data)).catch(() => {})
-    api.get('/coach/reports/weekly').then(res => setWeeklyData(res.data)).catch(() => {})
-    api.get('/coach/reports/monthly').then(res => setMonthlyData(res.data)).catch(() => {})
+    api.get('/api/coach/reports/daily').then(res => setDailyData(res.data)).catch(() => {})
+    api.get('/api/coach/reports/weekly').then(res => setWeeklyData(res.data)).catch(() => {})
+    api.get('/api/coach/reports/monthly').then(res => setMonthlyData(res.data)).catch(() => {})
   }, [])
 
   const sendMessage = async (text: string) => {
@@ -44,7 +44,7 @@ export default function AIChatPage() {
     setLoading(true)
 
     try {
-      const response = await api.post('/coach/chat', { message: text })
+      const response = await api.post('/api/coach/chat', { message: text })
       const aiMsg: Message = {
         sender: 'ai',
         text: response.data.reply,

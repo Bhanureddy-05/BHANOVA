@@ -19,7 +19,7 @@ export default function JournalPage() {
   
   const fetchEntries = async () => {
     try {
-      const res = await api.get('/journal/')
+      const res = await api.get('/api/journal/')
       setEntries(res.data)
       setLoading(false)
     } catch (e) {
@@ -45,7 +45,7 @@ export default function JournalPage() {
     }
 
     try {
-      await api.post('/journal/', payload)
+      await api.post('/api/journal/', payload)
       toast.success('📝 Journal entry saved! +15 XP')
       // Reset form
       setGratitude1('')

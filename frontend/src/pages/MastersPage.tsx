@@ -25,7 +25,7 @@ export default function MastersPage() {
 
   const fetchData = async () => {
     try {
-      const prepRes = await api.get('/career/masters')
+      const prepRes = await api.get('/api/career/masters')
       setPrep(prepRes.data)
       setIelts(prepRes.data.ielts_score?.toString() || '')
       setGre(prepRes.data.gre_score?.toString() || '')
@@ -34,7 +34,7 @@ export default function MastersPage() {
       setVisa(prepRes.data.visa_status || '')
       setLoan(prepRes.data.loan_status || '')
 
-      const univRes = await api.get('/career/universities')
+      const univRes = await api.get('/api/career/universities')
       setUniversities(univRes.data)
       setLoading(false)
     } catch (e) {
@@ -58,7 +58,7 @@ export default function MastersPage() {
     }
 
     try {
-      await api.put('/career/masters', payload)
+      await api.put('/api/career/masters', payload)
       toast.success('🎓 Master\'s preparation metrics saved!')
       fetchData()
     } catch (err) {
@@ -76,7 +76,7 @@ export default function MastersPage() {
     }
 
     try {
-      await api.post('/career/universities', payload)
+      await api.post('/api/career/universities', payload)
       toast.success('🏫 University shortlisted!')
       setUnivName('')
       setProgram('')
@@ -89,7 +89,7 @@ export default function MastersPage() {
 
   const handleStatusChange = async (univId: number, newStatus: string) => {
     try {
-      await api.put(`/career/universities/${univId}?status=${newStatus}`)
+      await api.put(`/api/career/universities/${univId}?status=${newStatus}`)
       toast.success('University status updated')
       fetchData()
     } catch (e) {

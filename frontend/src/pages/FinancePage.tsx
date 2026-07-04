@@ -16,7 +16,7 @@ export default function FinancePage() {
 
   const fetchLogs = async () => {
     try {
-      const res = await api.get('/finance/')
+      const res = await api.get('/api/finance/')
       setLogs(res.data)
       setLoading(false)
     } catch (e) {
@@ -44,7 +44,7 @@ export default function FinancePage() {
     }
 
     try {
-      await api.post('/finance/', payload)
+      await api.post('/api/finance/', payload)
       toast.success('💰 Finance log recorded! +5 XP')
       setAmount('')
       setCategory('')
@@ -57,7 +57,7 @@ export default function FinancePage() {
 
   const handleDelete = async (id: number) => {
     try {
-      await api.delete(`/finance/${id}`)
+      await api.delete(`/api/finance/${id}`)
       toast.success('Transaction entry deleted')
       fetchLogs()
     } catch (e) {

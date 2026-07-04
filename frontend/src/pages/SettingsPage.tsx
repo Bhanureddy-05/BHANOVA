@@ -17,7 +17,7 @@ export default function SettingsPage() {
 
   const fetchCalendarStatus = async () => {
     try {
-      const res = await api.get('/calendar/status')
+      const res = await api.get('/api/calendar/status')
       setIsCalendarLinked(res.data.linked)
       setCalendarInfo(res.data)
     } catch (err) {
@@ -36,7 +36,7 @@ export default function SettingsPage() {
     }
     const tid = toast.loading('Linking Google Calendar...')
     try {
-      await api.post('/calendar/link', { auth_code: oauthCode })
+      await api.post('/api/calendar/link', { auth_code: oauthCode })
       toast.success('Google Calendar linked successfully! 🎉', { id: tid })
       setOauthCode('')
       fetchCalendarStatus()
@@ -48,7 +48,7 @@ export default function SettingsPage() {
   const handleDisconnectCalendar = async () => {
     const tid = toast.loading('Disconnecting Google Calendar...')
     try {
-      await api.delete('/calendar/unlink')
+      await api.delete('/api/calendar/unlink')
       toast.success('Google Calendar disconnected successfully!', { id: tid })
       fetchCalendarStatus()
     } catch (err) {
@@ -92,7 +92,7 @@ export default function SettingsPage() {
 
   const handleExportBackup = async () => {
     try {
-      const response = await api.get('/export/backup', { responseType: 'blob' })
+      const response = await api.get('/api/export/backup', { responseType: 'blob' })
       const url = window.URL.createObjectURL(new Blob([response.data]))
       const link = document.createElement('a')
       link.href = url
@@ -115,7 +115,7 @@ export default function SettingsPage() {
 
     const toastId = toast.loading('Restoring database backup...')
     try {
-      await api.post('/export/restore', formData, {
+      await api.post('/api/export/restore', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -129,7 +129,7 @@ export default function SettingsPage() {
 
   const handleExportCSV = async (type: string) => {
     try {
-      const response = await api.get(`/export/csv/${type}`, { responseType: 'blob' })
+      const response = await api.get(`/api/export/csv/${type}`, { responseType: 'blob' })
       const url = window.URL.createObjectURL(new Blob([response.data]))
       const link = document.createElement('a')
       link.href = url

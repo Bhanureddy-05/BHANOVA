@@ -18,7 +18,7 @@ export default function PlacementPage() {
 
   const fetchJobs = async () => {
     try {
-      const res = await api.get('/career/jobs')
+      const res = await api.get('/api/career/jobs')
       setJobs(res.data)
       setLoading(false)
     } catch (e) {
@@ -43,7 +43,7 @@ export default function PlacementPage() {
     }
 
     try {
-      await api.post('/career/jobs', payload)
+      await api.post('/api/career/jobs', payload)
       toast.success('💼 Job application logged! +10 XP')
       setCompany('')
       setRole('')
@@ -58,7 +58,7 @@ export default function PlacementPage() {
 
   const handleStatusChange = async (jobId: number, newStatus: string) => {
     try {
-      await api.put(`/career/jobs/${jobId}?status=${newStatus}`)
+      await api.put(`/api/career/jobs/${jobId}?status=${newStatus}`)
       toast.success('Application status updated')
       fetchJobs()
     } catch (e) {

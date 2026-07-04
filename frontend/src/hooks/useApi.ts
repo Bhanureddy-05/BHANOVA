@@ -16,26 +16,26 @@ export const useRegister = () => useMutation({
 // ── Dashboard ─────────────────────────────────────────────────────────────────
 export const useDashboard = () => useQuery({
   queryKey: ['dashboard'],
-  queryFn: () => api.get('/dashboard/summary').then(r => r.data),
+  queryFn: () => api.get('/api/dashboard/summary').then(r => r.data),
   refetchInterval: 60000,
 })
 
 // ── Habits ────────────────────────────────────────────────────────────────────
 export const useHabits = () => useQuery({
   queryKey: ['habits'],
-  queryFn: () => api.get('/habits').then(r => r.data),
+  queryFn: () => api.get('/api/habits').then(r => r.data),
 })
 
 export const useTodayHabits = () => useQuery({
   queryKey: ['habits', 'today'],
-  queryFn: () => api.get('/habits/today').then(r => r.data),
+  queryFn: () => api.get('/api/habits/today').then(r => r.data),
   refetchInterval: 30000,
 })
 
 export const useCreateHabit = () => {
   const qc = useQueryClient()
   return useMutation({
-    mutationFn: (data: any) => api.post('/habits', data).then(r => r.data),
+    mutationFn: (data: any) => api.post('/api/habits', data).then(r => r.data),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['habits'] })
       toast.success('Habit created!')
@@ -47,7 +47,7 @@ export const useLogHabit = () => {
   const qc = useQueryClient()
   return useMutation({
     mutationFn: (data: { habit_id: number; date: string; completed: boolean }) =>
-      api.post('/habits/logs', data).then(r => r.data),
+      api.post('/api/habits/logs', data).then(r => r.data),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['habits'] })
       qc.invalidateQueries({ queryKey: ['dashboard'] })
@@ -58,7 +58,7 @@ export const useLogHabit = () => {
 export const useDeleteHabit = () => {
   const qc = useQueryClient()
   return useMutation({
-    mutationFn: (id: number) => api.delete(`/habits/${id}`).then(r => r.data),
+    mutationFn: (id: number) => api.delete(`/api/habits/${id}`).then(r => r.data),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['habits'] })
       toast.success('Habit deleted')
@@ -69,13 +69,13 @@ export const useDeleteHabit = () => {
 // ── Study ─────────────────────────────────────────────────────────────────────
 export const useStudyTopics = () => useQuery({
   queryKey: ['study', 'topics'],
-  queryFn: () => api.get('/study/topics').then(r => r.data),
+  queryFn: () => api.get('/api/study/topics').then(r => r.data),
 })
 
 export const useCreateStudyTopic = () => {
   const qc = useQueryClient()
   return useMutation({
-    mutationFn: (data: any) => api.post('/study/topics', data).then(r => r.data),
+    mutationFn: (data: any) => api.post('/api/study/topics', data).then(r => r.data),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['study'] })
       toast.success('Topic created!')
@@ -87,20 +87,20 @@ export const useUpdateStudyTopic = () => {
   const qc = useQueryClient()
   return useMutation({
     mutationFn: ({ id, data }: { id: number; data: any }) =>
-      api.put(`/study/topics/${id}`, data).then(r => r.data),
+      api.put(`/api/study/topics/${id}`, data).then(r => r.data),
     onSuccess: () => qc.invalidateQueries({ queryKey: ['study'] }),
   })
 }
 
 export const useStudySessions = (params?: { start_date?: string; end_date?: string }) => useQuery({
   queryKey: ['study', 'sessions', params],
-  queryFn: () => api.get('/study/sessions', { params }).then(r => r.data),
+  queryFn: () => api.get('/api/study/sessions', { params }).then(r => r.data),
 })
 
 export const useCreateStudySession = () => {
   const qc = useQueryClient()
   return useMutation({
-    mutationFn: (data: any) => api.post('/study/sessions', data).then(r => r.data),
+    mutationFn: (data: any) => api.post('/api/study/sessions', data).then(r => r.data),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['study'] })
       qc.invalidateQueries({ queryKey: ['dashboard'] })
@@ -112,23 +112,23 @@ export const useCreateStudySession = () => {
 // ── DSA ───────────────────────────────────────────────────────────────────────
 export const useDSATopics = () => useQuery({
   queryKey: ['dsa', 'topics'],
-  queryFn: () => api.get('/dsa/topics').then(r => r.data),
+  queryFn: () => api.get('/api/dsa/topics').then(r => r.data),
 })
 
 export const useDSAStats = () => useQuery({
   queryKey: ['dsa', 'stats'],
-  queryFn: () => api.get('/dsa/stats').then(r => r.data),
+  queryFn: () => api.get('/api/dsa/stats').then(r => r.data),
 })
 
 export const useDSAProblems = (params?: any) => useQuery({
   queryKey: ['dsa', 'problems', params],
-  queryFn: () => api.get('/dsa/problems', { params }).then(r => r.data),
+  queryFn: () => api.get('/api/dsa/problems', { params }).then(r => r.data),
 })
 
 export const useCreateDSATopic = () => {
   const qc = useQueryClient()
   return useMutation({
-    mutationFn: (data: any) => api.post('/dsa/topics', data).then(r => r.data),
+    mutationFn: (data: any) => api.post('/api/dsa/topics', data).then(r => r.data),
     onSuccess: () => qc.invalidateQueries({ queryKey: ['dsa'] }),
   })
 }
@@ -137,7 +137,7 @@ export const useUpdateDSATopic = () => {
   const qc = useQueryClient()
   return useMutation({
     mutationFn: ({ id, data }: { id: number; data: any }) =>
-      api.put(`/dsa/topics/${id}`, data).then(r => r.data),
+      api.put(`/api/dsa/topics/${id}`, data).then(r => r.data),
     onSuccess: () => qc.invalidateQueries({ queryKey: ['dsa'] }),
   })
 }
@@ -145,7 +145,7 @@ export const useUpdateDSATopic = () => {
 export const useCreateDSAProblem = () => {
   const qc = useQueryClient()
   return useMutation({
-    mutationFn: (data: any) => api.post('/dsa/problems', data).then(r => r.data),
+    mutationFn: (data: any) => api.post('/api/dsa/problems', data).then(r => r.data),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['dsa'] })
       toast.success('Problem added!')
@@ -157,7 +157,7 @@ export const useUpdateDSAProblem = () => {
   const qc = useQueryClient()
   return useMutation({
     mutationFn: ({ id, data }: { id: number; data: any }) =>
-      api.put(`/dsa/problems/${id}`, data).then(r => r.data),
+      api.put(`/api/dsa/problems/${id}`, data).then(r => r.data),
     onSuccess: () => qc.invalidateQueries({ queryKey: ['dsa'] }),
   })
 }
@@ -165,18 +165,18 @@ export const useUpdateDSAProblem = () => {
 // ── Interview ─────────────────────────────────────────────────────────────────
 export const useInterviewTopics = () => useQuery({
   queryKey: ['interview', 'topics'],
-  queryFn: () => api.get('/interview/topics').then(r => r.data),
+  queryFn: () => api.get('/api/interview/topics').then(r => r.data),
 })
 
 export const useInterviewReadiness = () => useQuery({
   queryKey: ['interview', 'readiness'],
-  queryFn: () => api.get('/interview/readiness').then(r => r.data),
+  queryFn: () => api.get('/api/interview/readiness').then(r => r.data),
 })
 
 export const useCreateInterviewTopic = () => {
   const qc = useQueryClient()
   return useMutation({
-    mutationFn: (data: any) => api.post('/interview/topics', data).then(r => r.data),
+    mutationFn: (data: any) => api.post('/api/interview/topics', data).then(r => r.data),
     onSuccess: () => qc.invalidateQueries({ queryKey: ['interview'] }),
   })
 }
@@ -185,7 +185,7 @@ export const useUpdateInterviewTopic = () => {
   const qc = useQueryClient()
   return useMutation({
     mutationFn: ({ id, data }: { id: number; data: any }) =>
-      api.put(`/interview/topics/${id}`, data).then(r => r.data),
+      api.put(`/api/interview/topics/${id}`, data).then(r => r.data),
     onSuccess: () => qc.invalidateQueries({ queryKey: ['interview'] }),
   })
 }
@@ -193,13 +193,13 @@ export const useUpdateInterviewTopic = () => {
 // ── Projects ──────────────────────────────────────────────────────────────────
 export const useProjects = () => useQuery({
   queryKey: ['projects'],
-  queryFn: () => api.get('/projects').then(r => r.data),
+  queryFn: () => api.get('/api/projects').then(r => r.data),
 })
 
 export const useCreateProject = () => {
   const qc = useQueryClient()
   return useMutation({
-    mutationFn: (data: any) => api.post('/projects', data).then(r => r.data),
+    mutationFn: (data: any) => api.post('/api/projects', data).then(r => r.data),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['projects'] })
       toast.success('Project created!')
@@ -211,7 +211,7 @@ export const useUpdateProject = () => {
   const qc = useQueryClient()
   return useMutation({
     mutationFn: ({ id, data }: { id: number; data: any }) =>
-      api.put(`/projects/${id}`, data).then(r => r.data),
+      api.put(`/api/projects/${id}`, data).then(r => r.data),
     onSuccess: () => qc.invalidateQueries({ queryKey: ['projects'] }),
   })
 }
@@ -219,7 +219,7 @@ export const useUpdateProject = () => {
 export const useDeleteProject = () => {
   const qc = useQueryClient()
   return useMutation({
-    mutationFn: (id: number) => api.delete(`/projects/${id}`).then(r => r.data),
+    mutationFn: (id: number) => api.delete(`/api/projects/${id}`).then(r => r.data),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['projects'] })
       toast.success('Project deleted')
@@ -230,23 +230,23 @@ export const useDeleteProject = () => {
 // ── Fitness ───────────────────────────────────────────────────────────────────
 export const useFitnessLogs = (params?: any) => useQuery({
   queryKey: ['fitness', 'logs', params],
-  queryFn: () => api.get('/fitness/logs', { params }).then(r => r.data),
+  queryFn: () => api.get('/api/fitness/logs', { params }).then(r => r.data),
 })
 
 export const useFitnessStats = () => useQuery({
   queryKey: ['fitness', 'stats'],
-  queryFn: () => api.get('/fitness/stats').then(r => r.data),
+  queryFn: () => api.get('/api/fitness/stats').then(r => r.data),
 })
 
 export const useBodyMeasurements = () => useQuery({
   queryKey: ['fitness', 'measurements'],
-  queryFn: () => api.get('/fitness/measurements').then(r => r.data),
+  queryFn: () => api.get('/api/fitness/measurements').then(r => r.data),
 })
 
 export const useCreateFitnessLog = () => {
   const qc = useQueryClient()
   return useMutation({
-    mutationFn: (data: any) => api.post('/fitness/logs', data).then(r => r.data),
+    mutationFn: (data: any) => api.post('/api/fitness/logs', data).then(r => r.data),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['fitness'] })
       toast.success('Workout logged!')
@@ -257,7 +257,7 @@ export const useCreateFitnessLog = () => {
 export const useCreateBodyMeasurement = () => {
   const qc = useQueryClient()
   return useMutation({
-    mutationFn: (data: any) => api.post('/fitness/measurements', data).then(r => r.data),
+    mutationFn: (data: any) => api.post('/api/fitness/measurements', data).then(r => r.data),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['fitness'] })
       toast.success('Measurement saved!')
@@ -268,19 +268,19 @@ export const useCreateBodyMeasurement = () => {
 // ── Diet ──────────────────────────────────────────────────────────────────────
 export const useFoodLogs = (log_date?: string) => useQuery({
   queryKey: ['diet', 'logs', log_date],
-  queryFn: () => api.get('/diet/logs', { params: { log_date } }).then(r => r.data),
+  queryFn: () => api.get('/api/diet/logs', { params: { log_date } }).then(r => r.data),
 })
 
 export const useDietSummary = (log_date: string) => useQuery({
   queryKey: ['diet', 'summary', log_date],
-  queryFn: () => api.get(`/diet/summary/${log_date}`).then(r => r.data),
+  queryFn: () => api.get(`/api/diet/summary/${log_date}`).then(r => r.data),
   enabled: !!log_date,
 })
 
 export const useCreateFoodLog = () => {
   const qc = useQueryClient()
   return useMutation({
-    mutationFn: (data: any) => api.post('/diet/logs', data).then(r => r.data),
+    mutationFn: (data: any) => api.post('/api/diet/logs', data).then(r => r.data),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['diet'] })
       toast.success('Food logged!')
@@ -291,7 +291,7 @@ export const useCreateFoodLog = () => {
 export const useDeleteFoodLog = () => {
   const qc = useQueryClient()
   return useMutation({
-    mutationFn: (id: number) => api.delete(`/diet/logs/${id}`).then(r => r.data),
+    mutationFn: (id: number) => api.delete(`/api/diet/logs/${id}`).then(r => r.data),
     onSuccess: () => qc.invalidateQueries({ queryKey: ['diet'] }),
   })
 }
@@ -299,18 +299,18 @@ export const useDeleteFoodLog = () => {
 // ── Sleep ─────────────────────────────────────────────────────────────────────
 export const useSleepLogs = (params?: any) => useQuery({
   queryKey: ['sleep', 'logs', params],
-  queryFn: () => api.get('/sleep', { params }).then(r => r.data),
+  queryFn: () => api.get('/api/sleep', { params }).then(r => r.data),
 })
 
 export const useSleepStats = () => useQuery({
   queryKey: ['sleep', 'stats'],
-  queryFn: () => api.get('/sleep/stats').then(r => r.data),
+  queryFn: () => api.get('/api/sleep/stats').then(r => r.data),
 })
 
 export const useCreateSleepLog = () => {
   const qc = useQueryClient()
   return useMutation({
-    mutationFn: (data: any) => api.post('/sleep', data).then(r => r.data),
+    mutationFn: (data: any) => api.post('/api/sleep', data).then(r => r.data),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['sleep'] })
       toast.success('Sleep logged!')
@@ -321,18 +321,18 @@ export const useCreateSleepLog = () => {
 // ── Singing ───────────────────────────────────────────────────────────────────
 export const useSingingSessions = () => useQuery({
   queryKey: ['singing'],
-  queryFn: () => api.get('/singing').then(r => r.data),
+  queryFn: () => api.get('/api/singing').then(r => r.data),
 })
 
 export const useSingingStats = () => useQuery({
   queryKey: ['singing', 'stats'],
-  queryFn: () => api.get('/singing/stats').then(r => r.data),
+  queryFn: () => api.get('/api/singing/stats').then(r => r.data),
 })
 
 export const useCreateSingingSession = () => {
   const qc = useQueryClient()
   return useMutation({
-    mutationFn: (data: any) => api.post('/singing', data).then(r => r.data),
+    mutationFn: (data: any) => api.post('/api/singing', data).then(r => r.data),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['singing'] })
       toast.success('Singing session logged!')
@@ -343,18 +343,18 @@ export const useCreateSingingSession = () => {
 // ── Reading ───────────────────────────────────────────────────────────────────
 export const useBooks = (status?: string) => useQuery({
   queryKey: ['reading', 'books', status],
-  queryFn: () => api.get('/reading/books', { params: status ? { status } : {} }).then(r => r.data),
+  queryFn: () => api.get('/api/reading/books', { params: status ? { status } : {} }).then(r => r.data),
 })
 
 export const useReadingStats = () => useQuery({
   queryKey: ['reading', 'stats'],
-  queryFn: () => api.get('/reading/stats').then(r => r.data),
+  queryFn: () => api.get('/api/reading/stats').then(r => r.data),
 })
 
 export const useCreateBook = () => {
   const qc = useQueryClient()
   return useMutation({
-    mutationFn: (data: any) => api.post('/reading/books', data).then(r => r.data),
+    mutationFn: (data: any) => api.post('/api/reading/books', data).then(r => r.data),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['reading'] })
       toast.success('Book added!')
@@ -366,7 +366,7 @@ export const useUpdateBook = () => {
   const qc = useQueryClient()
   return useMutation({
     mutationFn: ({ id, data }: { id: number; data: any }) =>
-      api.put(`/reading/books/${id}`, data).then(r => r.data),
+      api.put(`/api/reading/books/${id}`, data).then(r => r.data),
     onSuccess: () => qc.invalidateQueries({ queryKey: ['reading'] }),
   })
 }
@@ -374,7 +374,7 @@ export const useUpdateBook = () => {
 export const useCreateReadingSession = () => {
   const qc = useQueryClient()
   return useMutation({
-    mutationFn: (data: any) => api.post('/reading/sessions', data).then(r => r.data),
+    mutationFn: (data: any) => api.post('/api/reading/sessions', data).then(r => r.data),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['reading'] })
       toast.success('Reading session logged!')
@@ -385,13 +385,13 @@ export const useCreateReadingSession = () => {
 // ── Goals ─────────────────────────────────────────────────────────────────────
 export const useGoals = (goal_type?: string) => useQuery({
   queryKey: ['goals', goal_type],
-  queryFn: () => api.get('/goals', { params: goal_type ? { goal_type } : {} }).then(r => r.data),
+  queryFn: () => api.get('/api/goals', { params: goal_type ? { goal_type } : {} }).then(r => r.data),
 })
 
 export const useCreateGoal = () => {
   const qc = useQueryClient()
   return useMutation({
-    mutationFn: (data: any) => api.post('/goals', data).then(r => r.data),
+    mutationFn: (data: any) => api.post('/api/goals', data).then(r => r.data),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['goals'] })
       toast.success('Goal created!')
@@ -403,7 +403,7 @@ export const useUpdateGoal = () => {
   const qc = useQueryClient()
   return useMutation({
     mutationFn: ({ id, data }: { id: number; data: any }) =>
-      api.put(`/goals/${id}`, data).then(r => r.data),
+      api.put(`/api/goals/${id}`, data).then(r => r.data),
     onSuccess: () => qc.invalidateQueries({ queryKey: ['goals'] }),
   })
 }
@@ -411,7 +411,7 @@ export const useUpdateGoal = () => {
 export const useDeleteGoal = () => {
   const qc = useQueryClient()
   return useMutation({
-    mutationFn: (id: number) => api.delete(`/goals/${id}`).then(r => r.data),
+    mutationFn: (id: number) => api.delete(`/api/goals/${id}`).then(r => r.data),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['goals'] })
       toast.success('Goal deleted')
@@ -422,35 +422,35 @@ export const useDeleteGoal = () => {
 // ── Analytics ─────────────────────────────────────────────────────────────────
 export const useAnalytics = (days = 30) => useQuery({
   queryKey: ['analytics', days],
-  queryFn: () => api.get('/analytics/overview', { params: { days } }).then(r => r.data),
+  queryFn: () => api.get('/api/analytics/overview', { params: { days } }).then(r => r.data),
 })
 
 // ── Reports ───────────────────────────────────────────────────────────────────
 export const useWeeklyReport = () => useQuery({
   queryKey: ['reports', 'weekly'],
-  queryFn: () => api.get('/reports/weekly').then(r => r.data),
+  queryFn: () => api.get('/api/reports/weekly').then(r => r.data),
 })
 
 export const useMonthlyReport = () => useQuery({
   queryKey: ['reports', 'monthly'],
-  queryFn: () => api.get('/reports/monthly').then(r => r.data),
+  queryFn: () => api.get('/api/reports/monthly').then(r => r.data),
 })
 
 export const useYearlyReport = () => useQuery({
   queryKey: ['reports', 'yearly'],
-  queryFn: () => api.get('/reports/yearly').then(r => r.data),
+  queryFn: () => api.get('/api/reports/yearly').then(r => r.data),
 })
 
 // ── Planner ───────────────────────────────────────────────────────────────────
 export const usePlannerTasks = (task_date?: string) => useQuery({
   queryKey: ['planner', 'tasks', task_date],
-  queryFn: () => api.get('/planner/tasks', { params: task_date ? { task_date } : {} }).then(r => r.data),
+  queryFn: () => api.get('/api/planner/tasks', { params: task_date ? { task_date } : {} }).then(r => r.data),
 })
 
 export const useCreatePlannerTask = () => {
   const qc = useQueryClient()
   return useMutation({
-    mutationFn: (data: any) => api.post('/planner/tasks', data).then(r => r.data),
+    mutationFn: (data: any) => api.post('/api/planner/tasks', data).then(r => r.data),
     onSuccess: () => qc.invalidateQueries({ queryKey: ['planner'] }),
   })
 }
@@ -459,7 +459,7 @@ export const useUpdatePlannerTask = () => {
   const qc = useQueryClient()
   return useMutation({
     mutationFn: ({ id, data }: { id: number; data: any }) =>
-      api.put(`/planner/tasks/${id}`, data).then(r => r.data),
+      api.put(`/api/planner/tasks/${id}`, data).then(r => r.data),
     onSuccess: () => qc.invalidateQueries({ queryKey: ['planner'] }),
   })
 }
@@ -467,7 +467,7 @@ export const useUpdatePlannerTask = () => {
 export const useDeletePlannerTask = () => {
   const qc = useQueryClient()
   return useMutation({
-    mutationFn: (id: number) => api.delete(`/planner/tasks/${id}`).then(r => r.data),
+    mutationFn: (id: number) => api.delete(`/api/planner/tasks/${id}`).then(r => r.data),
     onSuccess: () => qc.invalidateQueries({ queryKey: ['planner'] }),
   })
 }
@@ -475,7 +475,7 @@ export const useDeletePlannerTask = () => {
 export const useLogPomodoro = () => {
   const qc = useQueryClient()
   return useMutation({
-    mutationFn: (data: any) => api.post('/planner/pomodoro', data).then(r => r.data),
+    mutationFn: (data: any) => api.post('/api/planner/pomodoro', data).then(r => r.data),
     onSuccess: () => qc.invalidateQueries({ queryKey: ['planner'] }),
   })
 }
@@ -484,7 +484,7 @@ export const useLogPomodoro = () => {
 export const useUpdateProfile = () => {
   const qc = useQueryClient()
   return useMutation({
-    mutationFn: (data: any) => api.put('/users/me', data).then(r => r.data),
+    mutationFn: (data: any) => api.put('/api/users/me', data).then(r => r.data),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['user'] })
       toast.success('Profile updated!')
@@ -493,7 +493,7 @@ export const useUpdateProfile = () => {
 }
 
 export const useChangePassword = () => useMutation({
-  mutationFn: (data: any) => api.post('/users/change-password', data).then(r => r.data),
+  mutationFn: (data: any) => api.post('/api/users/change-password', data).then(r => r.data),
   onSuccess: () => toast.success('Password changed!'),
   onError: () => toast.error('Current password is incorrect'),
 })
