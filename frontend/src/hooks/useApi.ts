@@ -5,12 +5,12 @@ import toast from 'react-hot-toast'
 // ── Auth ──────────────────────────────────────────────────────────────────────
 export const useLogin = () => useMutation({
   mutationFn: (data: { email: string; password: string }) =>
-    api.post('/auth/login', data).then(r => r.data),
+    api.post("/api/auth/login", data).then(r => r.data),
 })
 
 export const useRegister = () => useMutation({
   mutationFn: (data: { email: string; username: string; full_name: string; password: string }) =>
-    api.post('/auth/register', data).then(r => r.data),
+    api.post("/api/auth/register", data).then(r => r.data),
 })
 
 // ── Dashboard ─────────────────────────────────────────────────────────────────
