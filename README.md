@@ -189,24 +189,67 @@ screenshots/demo.gif
 
 ---
 
-# 📸 Screenshots
-
-Create a `screenshots/` folder and add:
-
-| Dashboard | Habit Tracker |
-|-----------|---------------|
-| ![](screenshots/dashboard.png) | ![](screenshots/habits.png) |
-
-| Study Planner | Analytics |
-|---------------|-----------|
-| ![](screenshots/study.png) | ![](screenshots/analytics.png) |
-
-| Fitness | Journal |
-|---------|----------|
-| ![](screenshots/fitness.png) | ![](screenshots/journal.png) |
-
 ---
 
+# 📸 Application Screenshots
+
+<p align="center">
+
+<h3>🔐 Authentication</h3>
+
+<img src="frontend/screenshots/1_login.png" width="90%" alt="Login Page"/>
+
+<br><br>
+
+<h3>🏠 Dashboard</h3>
+
+<img src="frontend/screenshots/2_Dashboard.png" width="90%" alt="Dashboard"/>
+
+<br><br>
+
+<h3>📊 Analytics</h3>
+
+<img src="frontend/screenshots/3_analytics.png" width="90%" alt="Analytics"/>
+
+<br><br>
+
+<h3>📑 Reports</h3>
+
+<img src="frontend/screenshots/4_reports.png" width="90%" alt="Reports"/>
+
+<br><br>
+
+<h3>🤖 AI Assistant</h3>
+
+<img src="frontend/screenshots/5_ai%20assistant.png" width="90%" alt="AI Assistant"/>
+
+<br><br>
+
+<h3>🎙 Voice Center</h3>
+
+<img src="frontend/screenshots/6_voice%20center.png" width="90%" alt="Voice Center"/>
+
+<br><br>
+
+<h3>⚙️ Settings</h3>
+
+<img src="frontend/screenshots/7_settings.png" width="90%" alt="Settings"/>
+
+<br><br>
+
+<h3>📚 Study Planner</h3>
+
+<img src="frontend/screenshots/8_study.png" width="90%" alt="Study Planner"/>
+
+<br><br>
+
+<h3>❤️ Health Dashboard</h3>
+
+<img src="frontend/screenshots/9_health.png" width="90%" alt="Health Dashboard"/>
+
+</p>
+
+---
 # 🚀 Roadmap
 
 - AI Productivity Assistant
