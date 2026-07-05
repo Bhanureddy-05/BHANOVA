@@ -1,175 +1,70 @@
-# 🚀 BHANOVA – AI-Powered Personal Productivity Platform
-
 <p align="center">
-  <img src="https://img.shields.io/badge/React-19-61DAFB?logo=react" />
-  <img src="https://img.shields.io/badge/FastAPI-0.115-009688?logo=fastapi" />
-  <img src="https://img.shields.io/badge/Python-3.11-3776AB?logo=python" />
-  <img src="https://img.shields.io/badge/PostgreSQL-16-336791?logo=postgresql" />
-  <img src="https://img.shields.io/badge/SQLAlchemy-2.0-red" />
-  <img src="https://img.shields.io/badge/JWT-Authentication-success" />
-  <img src="https://img.shields.io/badge/Render-Backend-46E3B7?logo=render" />
-  <img src="https://img.shields.io/badge/Vercel-Frontend-black?logo=vercel" />
+  <img src="https://capsule-render.vercel.app/api?type=waving&height=250&color=0:00C2FF,100:6C63FF&text=BHANOVA&fontColor=ffffff&fontSize=60&animation=fadeIn&fontAlignY=38"/>
 </p>
 
-BHANOVA is a full-stack productivity platform that helps users manage daily habits, study plans, fitness, goals, journaling, reading progress, and personal growth from a single dashboard.
+<h1 align="center">🚀 BHANOVA</h1>
+<h3 align="center">AI-Powered Personal Productivity Platform</h3>
 
-The application is built using **React**, **FastAPI**, and **PostgreSQL**, following a modular architecture with secure authentication and REST APIs.
+<p align="center">
+<img src="https://readme-typing-svg.herokuapp.com?font=Poppins&weight=600&size=22&pause=1000&color=00C2FF&center=true&vCenter=true&width=700&lines=Track+Habits;Manage+Fitness;Plan+Studies;Build+Better+Daily+Systems;React+%7C+FastAPI+%7C+PostgreSQL"/>
+</p>
+
+<p align="center">
+<a href="https://bhanova.vercel.app"><img src="https://img.shields.io/badge/Live%20Demo-Vercel-black?style=for-the-badge&logo=vercel"/></a>
+<a href="https://bhanova.onrender.com/docs"><img src="https://img.shields.io/badge/API%20Docs-FastAPI-009688?style=for-the-badge&logo=fastapi"/></a>
+<a href="https://github.com/Bhanureddy-05/BHANOVA"><img src="https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github"/></a>
+</p>
+
+<p align="center">
+<img src="https://komarev.com/ghpvc/?username=Bhanureddy-05&style=for-the-badge&color=blue" />
+</p>
 
 ---
 
-# 🌐 Live Demo
+# 📖 Overview
 
-### Frontend
+**BHANOVA** is a modern AI-inspired personal productivity platform that centralizes daily planning, habit tracking, study management, fitness, nutrition, journaling, finance, reading, and career growth into one intuitive dashboard.
 
-https://bhanova.vercel.app
-
-### Backend API
-
-https://bhanova.onrender.com
-
-### API Documentation
-
-https://bhanova.onrender.com/docs
+Built with **React 19**, **FastAPI**, and **PostgreSQL**, it follows a modular full-stack architecture with secure JWT authentication and RESTful APIs.
 
 ---
 
 # ✨ Features
 
-## User Management
-
-- Secure JWT Authentication
-- User Registration & Login
-- Password Hashing
-- Protected API Routes
-- User Profile Management
-
----
-
-## Habit Tracking
-
-- Create Daily Habits
-- Habit Completion Tracking
-- Streak Calculation
-- Habit Statistics
-- Progress Monitoring
+- 🔐 Secure JWT Authentication
+- 👤 User Profiles
+- ✅ Habit Tracker
+- 📚 Study Planner
+- 💻 DSA Progress Tracker
+- 🏋️ Fitness Dashboard
+- 🥗 Nutrition Tracking
+- 😴 Sleep Monitoring
+- 📖 Reading Tracker
+- 🎯 Goal Management
+- 📝 Daily Planner
+- 📔 Morning & Night Journal
+- 💰 Finance Tracker
+- 💼 Career Dashboard
 
 ---
 
-## Study Planner
+# 🌐 Live Links
 
-- Study Topic Management
-- Study Session Logging
-- Learning Progress Tracking
-- Daily Study Analytics
-
----
-
-## DSA Tracker
-
-- Track DSA Topics
-- Problem Solving Progress
-- Accuracy Tracking
-- Revision Planning
-
----
-
-## Fitness Dashboard
-
-- Workout Logging
-- Body Measurements
-- Weight Tracking
-- Progress History
-
----
-
-## Nutrition Tracking
-
-- Food Journal
-- Daily Calories
-- Protein, Carbs & Fat Tracking
-- Water Intake Monitoring
-
----
-
-## Sleep Tracking
-
-- Sleep Duration
-- Sleep Quality
-- Daily Sleep Logs
-
----
-
-## Reading Tracker
-
-- Book Library
-- Reading Sessions
-- Reading Progress
-- Completion Statistics
-
----
-
-## Goal Management
-
-- Daily Goals
-- Weekly Goals
-- Monthly Goals
-- Progress Tracking
-
----
-
-## Planner
-
-- Daily Task Planning
-- Priority Management
-- Task Completion Tracking
-
----
-
-## Journal
-
-- Morning Journal
-- Night Reflection
-- Gratitude Logging
-
----
-
-## Finance Tracker
-
-- Income Tracking
-- Expense Tracking
-- Savings Records
-
----
-
-## Career Dashboard
-
-- Job Applications
-- Interview Preparation
-- University Shortlisting
-
----
-
-# 🏗 Architecture
-
-```
-                React + Vite
-                      │
-                      │ REST API
-                      ▼
-              FastAPI Backend
-                      │
-              SQLAlchemy ORM
-                      │
-                      ▼
-               PostgreSQL Database
-```
+| Service | URL |
+|---------|-----|
+| Frontend | https://bhanova.vercel.app |
+| Backend | https://bhanova.onrender.com |
+| API Docs | https://bhanova.onrender.com/docs |
 
 ---
 
 # 🛠 Tech Stack
 
-## Frontend
+<p align="center">
+<img src="https://skillicons.dev/icons?i=react,ts,vite,tailwind,python,fastapi,postgres,docker,git,github,vscode"/>
+</p>
 
+### Frontend
 - React 19
 - TypeScript
 - Vite
@@ -180,188 +75,190 @@ https://bhanova.onrender.com/docs
 - Framer Motion
 - Recharts
 
----
-
-## Backend
-
+### Backend
 - FastAPI
-- Python 3.11
 - SQLAlchemy
 - Alembic
-- JWT Authentication
 - Pydantic
+- JWT Authentication
 
----
-
-## Database
-
+### Database
 - PostgreSQL
 
+### Deployment
+- Vercel
+- Render
+
 ---
 
-## Deployment
+# 🏗 Architecture
 
-Frontend:
-- Vercel
-
-Backend:
-- Render
+```text
+Browser
+   │
+React + Vite
+   │
+REST API
+   │
+FastAPI
+   │
+SQLAlchemy ORM
+   │
+PostgreSQL
+```
 
 ---
 
 # 📁 Project Structure
 
-```
+```text
 BHANOVA
-│
-├── frontend
-│   ├── src
-│   ├── public
+├── frontend/
+│   ├── public/
+│   ├── src/
 │   └── package.json
-│
-├── backend
-│   ├── app
-│   ├── models
-│   ├── routers
-│   ├── services
+├── backend/
+│   ├── app/
+│   ├── models/
+│   ├── routers/
+│   ├── services/
 │   ├── database.py
 │   └── main.py
-│
 └── README.md
 ```
 
 ---
 
-# ⚙ Installation
+# ⚙️ Installation
 
-## Clone Repository
+## Clone
 
 ```bash
 git clone https://github.com/Bhanureddy-05/BHANOVA.git
-
 cd BHANOVA
 ```
-
----
 
 ## Backend
 
 ```bash
 cd backend
-
 python -m venv venv
 
 # Windows
 venv\Scripts\activate
 
-# Linux / Mac
+# Linux/macOS
 source venv/bin/activate
 
 pip install -r requirements.txt
-
 uvicorn app.main:app --reload
 ```
 
-Backend runs at
-
-```
-http://127.0.0.1:8000
-```
-
----
+Backend: http://127.0.0.1:8000
 
 ## Frontend
 
 ```bash
 cd frontend
-
 npm install
-
 npm run dev
 ```
 
-Frontend runs at
-
-```
-http://localhost:5173
-```
+Frontend: http://localhost:5173
 
 ---
 
 # 🔐 Environment Variables
 
-Example:
-
 ```env
 DATABASE_URL=your_database_url
-
 SECRET_KEY=your_secret_key
-
 ALGORITHM=HS256
-
 ACCESS_TOKEN_EXPIRE_MINUTES=30
 ```
 
 ---
 
-# 📷 Screenshots
+# 🎥 Demo
 
-> Add screenshots here
+Replace with your recording:
 
-- Login Page
-
-- Dashboard
-
-- Habit Tracker
-
-- Study Planner
-
-- Fitness Dashboard
-
-- Analytics
+```text
+screenshots/demo.gif
+```
 
 ---
 
-# 📌 Future Enhancements
+# 📸 Screenshots
+
+Create a `screenshots/` folder and add:
+
+| Dashboard | Habit Tracker |
+|-----------|---------------|
+| ![](screenshots/dashboard.png) | ![](screenshots/habits.png) |
+
+| Study Planner | Analytics |
+|---------------|-----------|
+| ![](screenshots/study.png) | ![](screenshots/analytics.png) |
+
+| Fitness | Journal |
+|---------|----------|
+| ![](screenshots/fitness.png) | ![](screenshots/journal.png) |
+
+---
+
+# 🚀 Roadmap
 
 - AI Productivity Assistant
-- Google Calendar Synchronization
-- Email Reminder Service
-- Smartwatch Integration
+- Google Calendar Sync
+- Email Notifications
+- Mobile App
 - Voice Journaling
-- Mobile Application
 - Advanced Analytics
-- Notification System
+- Smartwatch Integration
 
 ---
 
 # 📊 Skills Demonstrated
 
-- Full Stack Development
-- REST API Development
+- Full-Stack Development
+- REST API Design
 - Authentication & Authorization
 - Database Design
-- Backend Architecture
+- Responsive UI
 - State Management
-- Responsive UI Development
-- Deployment & DevOps
-- Git Version Control
+- Cloud Deployment
+- Git & GitHub
+
+---
+
+# 🤝 Contributing
+
+1. Fork the repository.
+2. Create a feature branch.
+3. Commit your changes.
+4. Push the branch.
+5. Open a Pull Request.
 
 ---
 
 # 👨‍💻 Author
 
-**Y Bhanu Prakash Reddy**
+**Y. Bhanu Prakash Reddy**
 
-LinkedIn:
-(Add your LinkedIn)
-
-GitHub:
-
-https://github.com/Bhanureddy-05
+- GitHub: https://github.com/Bhanureddy-05
+- LinkedIn: *(https://www.linkedin.com/in/y-bhanu-prakash-reddy-a77b862b3)*
 
 ---
 
 # 📄 License
 
-This project is licensed under the MIT License.
+Licensed under the MIT License.
+
+---
+
+<h3 align="center">⭐ If you like this project, consider giving it a star! ⭐</h3>
+
+<p align="center">
+Made with ❤️ by Bhanu Prakash Reddy
+</p>
