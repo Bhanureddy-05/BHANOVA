@@ -1,0 +1,4 @@
+# Exclude backend and local environment files from Vercel deployments
+backend/
+.venv/
+docker-compose.yml
